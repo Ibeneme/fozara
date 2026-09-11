@@ -17,27 +17,15 @@ export default defineConfig({
   server: {
     cors: true,
     hmr: true,
+    host: true,
+    port: 5177
+
   },
   build: {
     target: "esnext",
     minify: "esbuild",
     cssCodeSplit: true,
     sourcemap: false,
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (id.includes("node_modules")) {
-            if (id.includes("react") || id.includes("react-dom") || id.includes("react-router")) {
-              return "vendor-react";
-            }
-            if (id.includes("gsap") || id.includes("lucide-react")) {
-              return "vendor-animations";
-            }
-            return "vendor";
-          }
-        },
-      },
-    },
     chunkSizeWarningLimit: 600,
   },
 });

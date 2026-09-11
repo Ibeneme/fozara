@@ -1,4 +1,3 @@
-
 import { importedImages } from "@/constants/image";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -23,12 +22,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header
-      className="fixed inset-x-0 top-0 z-50 px-6 pt-4"
-      style={{
-        fontFamily: "'Parkinsans', ui-sans-serif, system-ui, sans-serif",
-      }}
-    >
+    <header className="fixed inset-x-0 top-0 z-50 px-6 pt-4">
       <nav
         className={`relative mx-auto flex max-w-[1180px] items-center justify-between rounded-full border px-5 py-3 transition-all duration-300 ease-out ${
           scrolled

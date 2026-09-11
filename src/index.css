@@ -2,14 +2,6 @@
 
 @font-face {
   font-family: 'Parkinsans';
-  src: url('../src/assets/fonts/parkinsans/Parkinsans-Light.ttf') format('truetype');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Parkinsans';
   src: url('../src/assets/fonts/parkinsans/Parkinsans-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
@@ -26,24 +18,8 @@
 
 @font-face {
   font-family: 'Parkinsans';
-  src: url('../src/assets/fonts/parkinsans/Parkinsans-SemiBold.ttf') format('truetype');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Parkinsans';
   src: url('../src/assets/fonts/parkinsans/Parkinsans-Bold.ttf') format('truetype');
   font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Parkinsans';
-  src: url('../src/assets/fonts/parkinsans/Parkinsans-ExtraBold.ttf') format('truetype');
-  font-weight: 800;
   font-style: normal;
   font-display: swap;
 }
@@ -68,4 +44,83 @@
 body {
   font-family: 'Parkinsans', sans-serif;
   -webkit-font-smoothing: antialiased;
+}
+
+/* ===== Hero animations ===== */
+@keyframes fzr-drift-a {
+
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(30px, 22px, 0) scale(1.06);
+  }
+}
+
+@keyframes fzr-drift-b {
+
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(-22px, 16px, 0) scale(1.05);
+  }
+}
+
+@keyframes fzr-flow {
+  from {
+    stroke-dashoffset: 0;
+  }
+
+  to {
+    stroke-dashoffset: -226;
+  }
+}
+
+@keyframes fzr-pulse {
+
+  0%,
+  100% {
+    r: 3;
+    opacity: 0.8;
+  }
+
+  50% {
+    r: 6.5;
+    opacity: 0;
+  }
+}
+
+.fzr-flow {
+  animation: fzr-flow 5.5s linear infinite;
+}
+
+.fzr-flow-delay-1 {
+  animation: fzr-flow 5.5s linear infinite;
+  animation-delay: 1.3s;
+}
+
+.fzr-pulse {
+  animation: fzr-pulse 2.8s ease-in-out infinite;
+}
+
+.fzr-pulse-delay-1 {
+  animation: fzr-pulse 2.8s ease-in-out infinite;
+  animation-delay: 1.3s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .fzr-flow,
+  .fzr-flow-delay-1,
+  .fzr-pulse,
+  .fzr-pulse-delay-1,
+  .animate-fzr-drift-a,
+  .animate-fzr-drift-b {
+    animation: none !important;
+  }
 }

@@ -5,24 +5,25 @@ import {
 } from "@/components/molecules/hero_molecules";
 
 export default function FZRHero() {
-  const headline = useFadeIn(180);
-  const sub = useFadeIn(320);
-  const ctas = useFadeIn(440);
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+
+  const headline = useFadeIn(isMobile ? 0 : 180);
+  const sub = useFadeIn(isMobile ? 0 : 320);
+  const ctas = useFadeIn(isMobile ? 0 : 440);
   const corridor = useFadeIn(580);
   const routes = useFadeIn(700);
 
   return (
-    <div
-      className="relative min-h-screen w-full overflow-hidden bg-[#0E1116]"
-      style={{
-        fontFamily: "'Parkinsans', ui-sans-serif, system-ui, sans-serif",
-      }}
-    >
-      <HeroBackground />
+    <div className="relative min-h-[90vh] w-full overflow-hidden bg-[#051a0e]">
+      {/* Hidden on mobile screens via CSS `hidden md:block` to eliminate heavy rendering overhead */}
+      <div className="hidden md:block">
+        <HeroBackground />
+      </div>
+
       <section className="relative mx-auto w-full max-w-[1180px] px-5 pb-16 pt-14 sm:px-6 sm:pb-20 sm:pt-16 md:pt-24">
         <h1
           {...headline}
-          className={`mt-16 max-w-[820px] text-[36px] font-semibold leading-[1.08] tracking-[-0.02em] text-white xs:text-[42px] sm:mt-8 sm:text-[54px] md:text-[68px] lg:text-[76px] ${headline.className}`}
+          className={`mt-16 max-w-[820px] text-[36px] font-semibold leading-[1.08] tracking-[-0.02em] text-white xs:text-[42px] sm:mt-8 sm:text-[54px] md:text-[68px] lg:text-[76px] md:${headline.className}`}
         >
           Send money home <br /> without losing to{" "}
           <span
@@ -38,7 +39,7 @@ export default function FZRHero() {
 
         <p
           {...sub}
-          className={`mt-6 max-w-[480px] text-[16px] leading-[1.6] text-white/60 sm:mt-7 sm:text-[18px] md:text-[19px] ${sub.className}`}
+          className={`mt-6 max-w-[480px] text-[16px] leading-[1.6] text-white/70 sm:mt-7 sm:text-[18px] md:text-[19px] md:${sub.className}`}
         >
           Fozara moves dollars, pounds and euros through stablecoins and settles
           them in local currency, in under a minute, for a flat fee you see
@@ -47,7 +48,7 @@ export default function FZRHero() {
 
         <div
           {...ctas}
-          className={`mt-8 flex flex-wrap items-center gap-5 sm:mt-9 sm:gap-6 ${ctas.className}`}
+          className={`mt-8 flex flex-wrap items-center gap-5 sm:mt-9 sm:gap-6 md:${ctas.className}`}
         >
           <button
             className="group relative overflow-hidden rounded-[10px] px-6 py-3.5 text-[15px] font-semibold text-[#0B1220] transition-transform duration-300 hover:scale-[1.03] active:scale-[0.98] sm:px-7"
@@ -69,19 +70,22 @@ export default function FZRHero() {
           </button>
         </div>
 
-        <div {...corridor} className={`mt-12 sm:mt-16 ${corridor.className}`}>
+        <div
+          {...corridor}
+          className={`mt-12 sm:mt-16 md:${corridor.className}`}
+        >
           <TransactionCorridor />
         </div>
 
         <div
           {...routes}
-          className={`mt-6 flex flex-wrap gap-x-6 gap-y-2 ${routes.className}`}
+          className={`mt-6 flex flex-wrap gap-x-6 gap-y-2 md:${routes.className}`}
         >
           {["USD to NGN", "GBP to KES", "EUR to UGX", "USD to GHS"].map(
             (route) => (
               <span
                 key={route}
-                className="cursor-default text-[13px] font-medium text-white/40 transition-colors hover:text-[#E7EC32]"
+                className="cursor-default text-[13px] font-medium text-white/50 transition-colors hover:text-[#E7EC32]"
               >
                 {route}
               </span>

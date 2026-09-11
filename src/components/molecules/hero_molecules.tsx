@@ -7,30 +7,32 @@ import {
   RECEIVE_CURRENCIES,
 } from "@/components/atoms/hero_section_atoms";
 
-
 export type CurrencyOption = {
-    code: string;
-    symbol: string;
-    name: string;
-    flag?: string;
-    rateToUsd?: number;
-    ratePerUsd?: number;
-    iconBg?: string;
-    iconText?: string;
-  };
-  
+  code: string;
+  symbol: string;
+  name: string;
+  flag?: string;
+  rateToUsd?: number;
+  ratePerUsd?: number;
+  iconBg?: string;
+  iconText?: string;
+};
+
 export function FlowArc({
   from,
   to,
-  delay,
+  delayIndex = 0,
 }: {
   from: number[];
   to: number[];
-  delay: number;
+  delayIndex?: number;
 }) {
   const midX = (from[0] + to[0]) / 2;
   const midY = Math.min(from[1], to[1]) - 55;
   const d = `M ${from[0]} ${from[1]} Q ${midX} ${midY} ${to[0]} ${to[1]}`;
+
+  const flowClass = delayIndex === 0 ? "fzr-flow" : "fzr-flow-delay-1";
+  const pulseClass = delayIndex === 0 ? "fzr-pulse" : "fzr-pulse-delay-1";
 
   return (
     <g>
@@ -48,8 +50,7 @@ export function FlowArc({
         strokeWidth="2"
         strokeLinecap="round"
         strokeDasharray="6 220"
-        className="fzr-flow"
-        style={{ animationDelay: `${delay}s` }}
+        className={flowClass}
       />
       <circle
         cx={from[0]}
@@ -63,8 +64,7 @@ export function FlowArc({
         cy={to[1]}
         r="3"
         fill="#E7EC32"
-        className="fzr-pulse"
-        style={{ animationDelay: `${delay}s` }}
+        className={pulseClass}
       />
     </g>
   );
@@ -75,10 +75,9 @@ export function WorldMap() {
 
   return (
     <svg
-      className="absolute inset-0 h-full w-full"
+      className="absolute inset-0 h-full w-full [contain:strict]"
       viewBox="0 0 1000 500"
       preserveAspectRatio="xMidYMid slice"
-      style={{ contain: "strict" }}
     >
       {dots.map((d, i) => (
         <circle
@@ -90,9 +89,8 @@ export function WorldMap() {
           fillOpacity="0.16"
         />
       ))}
-      {/* Only 2 arcs instead of 3 */}
       {FLOW_ROUTES.slice(0, 2).map((r, i) => (
-        <FlowArc key={r.id} from={r.from} to={r.to} delay={i * 1.3} />
+        <FlowArc key={r.id} from={r.from} to={r.to} delayIndex={i} />
       ))}
     </svg>
   );
@@ -103,24 +101,23 @@ export function HeroBackground() {
     <div aria-hidden className="absolute inset-0 overflow-hidden">
       <div className="absolute inset-0 bg-[#0E1116]" />
 
-      {/* Lighter blur + smaller size on mobile */}
+      {/* Yellow drift blob */}
       <div
-        className="absolute -left-[12%] -top-[28%] h-[700px] w-[700px] rounded-full opacity-[0.38] blur-[100px] md:h-[900px] md:w-[900px] md:opacity-[0.45] md:blur-[160px]"
-        style={{
-          background:
-            "radial-gradient(circle, #E7EC32 0%, #B8F24C 45%, transparent 72%)",
-          animation: "fzr-drift-a 28s ease-in-out infinite",
-        }}
-      />
-      <div
-        className="absolute right-[-18%] top-[8%] h-[480px] w-[480px] rounded-full opacity-[0.14] blur-[90px] md:h-[600px] md:w-[600px] md:opacity-[0.18] md:blur-[150px]"
-        style={{
-          background: "#5EE0C0",
-          animation: "fzr-drift-b 32s ease-in-out infinite",
-        }}
+        className="absolute -left-[12%] -top-[28%] h-[700px] w-[700px] rounded-full opacity-[0.38] blur-[100px]
+                   md:h-[900px] md:w-[900px] md:opacity-[0.45] md:blur-[160px]
+                   bg-[radial-gradient(circle,#E7EC32_0%,#B8F24C_45%,transparent_72%)]
+                   animate-fzr-drift-a"
       />
 
-      <div className="absolute inset-0 opacity-[0.9]">
+      {/* Teal drift blob */}
+      <div
+        className="absolute right-[-18%] top-[8%] h-[480px] w-[480px] rounded-full opacity-[0.14] blur-[90px]
+                   md:h-[600px] md:w-[600px] md:opacity-[0.18] md:blur-[150px]
+                   bg-[#5EE0C0]
+                   animate-fzr-drift-b"
+      />
+
+      <div className="absolute inset-0 opacity-90">
         <WorldMap />
       </div>
 
@@ -137,38 +134,6 @@ export function HeroBackground() {
         </defs>
         <rect width="100%" height="100%" fill="url(#fzr-fade)" />
       </svg>
-
-      <style>{`
-        @keyframes fzr-drift-a {
-          0%, 100% { transform: translate3d(0,0,0) scale(1); }
-          50% { transform: translate3d(30px,22px,0) scale(1.06); }
-        }
-        @keyframes fzr-drift-b {
-          0%, 100% { transform: translate3d(0,0,0) scale(1); }
-          50% { transform: translate3d(-22px,16px,0) scale(1.05); }
-        }
-        @keyframes fzr-flow {
-          from { stroke-dashoffset: 0; }
-          to { stroke-dashoffset: -226; }
-        }
-        .fzr-flow {
-          animation: fzr-flow 5.5s linear infinite;
-        }
-        @keyframes fzr-pulse {
-          0%, 100% { r: 3; opacity: 0.8; }
-          50% { r: 6.5; opacity: 0; }
-        }
-        .fzr-pulse {
-          animation: fzr-pulse 2.8s ease-in-out infinite;
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .fzr-flow,
-          .fzr-pulse,
-          [style*="fzr-drift"] {
-            animation: none !important;
-          }
-        }
-      `}</style>
     </div>
   );
 }
@@ -355,9 +320,12 @@ export function TransactionCorridor() {
     amountInUsd * (receiveCurrency.ratePerUsd || 1)
   ).toLocaleString(undefined, { maximumFractionDigits: 2 });
 
+  const progressLeft =
+    stage === 0 ? "left-0" : stage === 1 ? "left-1/3" : "left-2/3";
+
   return (
     <div className="group/card relative rounded-2xl border border-[#143628] bg-[#0b291d] shadow-[0_30px_90px_-25px_rgba(0,0,0,0.6)]">
-      <div className="flex flex-col md:flex-row md:items-stretch overflow-visible rounded-t-2xl">
+      <div className="flex flex-col overflow-visible rounded-t-2xl md:flex-row md:items-stretch">
         <CorridorStage
           label="Send"
           control={
@@ -429,19 +397,17 @@ export function TransactionCorridor() {
         </CorridorStage>
       </div>
 
+      {/* Progress bar */}
       <div className="relative h-[3px] w-full bg-[#143628]">
         <div
-          className="absolute top-0 h-[3px] transition-all duration-[1400ms] ease-in-out"
-          style={{
-            left: stage === 2 ? "66.6%" : stage === 1 ? "33.3%" : "0%",
-            width: "33.3%",
-            background: "linear-gradient(90deg, #E7EC32, #B8F24C)",
-            boxShadow: "0 0 16px 1px rgba(231,236,50,0.7)",
-          }}
+          className={`absolute top-0 h-[3px] w-1/3 transition-all duration-[1400ms] ease-in-out
+                      bg-gradient-to-r from-[#E7EC32] to-[#B8F24C]
+                      shadow-[0_0_16px_1px_rgba(231,236,50,0.7)]
+                      ${progressLeft}`}
         />
       </div>
 
-      <div className="flex items-center justify-between border-t border-[#143628] bg-[#072016] px-6 py-4 sm:px-8 rounded-b-2xl">
+      <div className="flex items-center justify-between rounded-b-2xl border-t border-[#143628] bg-[#072016] px-6 py-4 sm:px-8">
         <div className="flex gap-6 sm:gap-8">
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-wider text-[#9CA3AF]">

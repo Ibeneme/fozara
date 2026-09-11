@@ -24,50 +24,21 @@ export default function BrandScroller() {
   const items = [...BRANDS, ...BRANDS, ...BRANDS];
 
   return (
-    <section className="w-full bg-[#E7EC32] py-10">
+    <section className="w-full bg-[#E7EC32] py-10 overflow-hidden">
       <p className="mb-8 text-center text-[13px] font-medium tracking-wide text-[#0B1220]/60">
         Trusted by 200,000+ users worldwide
       </p>
 
-      <div className="relative overflow-hidden">
-        {/* Left Gradient Fade */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-[#E7EC32] to-transparent" />
-
-        {/* Right Gradient Fade */}
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-[#E7EC32] to-transparent" />
-
-        {/* Marquee Track */}
-        <div className="flex w-max animate-marquee items-center gap-10">
-          {items.map((brand, i) => (
-            <BrandItem
-              key={`${brand.name}-${i}`}
-              name={brand.name}
-              icon={brand.icon}
-            />
-          ))}
-        </div>
+      {/* Marquee Track using standard inline flex container */}
+      <div className="flex w-max items-center gap-10">
+        {items.map((brand, i) => (
+          <BrandItem
+            key={`${brand.name}-${i}`}
+            name={brand.name}
+            icon={brand.icon}
+          />
+        ))}
       </div>
-
-      {/* Standard HTML style tag compatible with React + Vite */}
-      <style>{`
-        @keyframes marquee {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-33.333%);
-          }
-        }
-
-        .animate-marquee {
-          animation: marquee 45s linear infinite;
-          will-change: transform;
-        }
-
-        .animate-marquee:hover {
-          animation-play-state: paused;
-        }
-      `}</style>
     </section>
   );
 }
