@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "@/components/templates/navbar/navbar";
 import Footer from "@/components/templates/footer/footer";
 import HomePage from "@/pages/home/page";
+import NotFoundPage from "@/pages/_not_found/page";
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </main>
         <Footer />
@@ -43,6 +45,9 @@ export default App;
   
   - `<Routes>` and `<Route path="/" element={<HomePage />} />`: 
     Defines the application routing map; matches the root URL ("/") and renders the HomePage component inside it.
+  
+  - `<Route path="*" element={<NotFoundPage />} />`: 
+    Catch-all wildcard route that matches any URL path not explicitly defined above, rendering the 404 Not Found page.
   
   - `<Footer />`: 
     Renders the footer component at the bottom of every page.

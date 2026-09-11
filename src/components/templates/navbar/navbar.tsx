@@ -1,11 +1,7 @@
-import { useEffect, useState } from "react";
-import logo from "@/assets/logo.svg";
-/**
- * FZR — Standalone Navbar (No dropdowns, Dark Green BG, No hover effects)
- */
 
-const FONT_IMPORT_URL =
-  "https://fonts.googleapis.com/css2?family=Parkinsans:wght@400;500;600;700;800&display=swap";
+import { importedImages } from "@/constants/image";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const NAV_ITEMS = [
   { id: "personal", label: "Personal", href: "#personal" },
@@ -33,8 +29,6 @@ export default function Navbar() {
         fontFamily: "'Parkinsans', ui-sans-serif, system-ui, sans-serif",
       }}
     >
-      <link rel="stylesheet" href={FONT_IMPORT_URL} />
-
       <nav
         className={`relative mx-auto flex max-w-[1180px] items-center justify-between rounded-full border px-5 py-3 transition-all duration-300 ease-out ${
           scrolled
@@ -47,10 +41,10 @@ export default function Navbar() {
             : "0 8px 32px 0 rgba(0,0,0,0.2)",
         }}
       >
-        {/* Brand */}
-        <a href="#" className="flex items-center">
-          <img src={logo} alt="FOZARA" className="h-7 w-auto" />
-        </a>
+        {/* Brand - Redirects to Home */}
+        <Link to="/" className="flex items-center">
+          <img src={importedImages.logo} alt="FOZARA" className="h-7 w-auto" />
+        </Link>
 
         {/* Desktop nav */}
         <div className="hidden items-center md:flex">
@@ -76,7 +70,6 @@ export default function Navbar() {
           </a>
         </div>
 
-        {/* Actions */}
         <div className="flex items-center gap-2">
           <button className="hidden rounded-full px-4 py-2 text-[13px] font-semibold text-[#E2E8F0] sm:block">
             Sign in
@@ -85,7 +78,6 @@ export default function Navbar() {
             Get started
           </button>
 
-          {/* Mobile toggle */}
           <button
             type="button"
             onClick={() => setMobileOpen((v) => !v)}
@@ -111,7 +103,6 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile menu */}
       {mobileOpen && (
         <div className="mx-auto mt-2 max-w-[1180px] rounded-[14px] border border-[#143628] bg-[#0b291d] p-4 shadow-[0_20px_44px_-20px_rgba(0,0,0,0.4)] backdrop-blur-xl md:hidden">
           <div className="flex flex-col divide-y divide-[#143628]">
@@ -120,6 +111,7 @@ export default function Navbar() {
                 key={item.id}
                 href={item.href}
                 className="py-3 text-[15px] font-medium text-[#E2E8F0]"
+                onClick={() => setMobileOpen(false)}
               >
                 {item.label}
               </a>
@@ -127,6 +119,7 @@ export default function Navbar() {
             <a
               href="#hackathon"
               className="flex items-center gap-1.5 py-3 text-[15px] font-semibold text-[#E2E8F0]"
+              onClick={() => setMobileOpen(false)}
             >
               <span className="h-1.5 w-1.5 rounded-full bg-[#E0EC27]" />
               Hackathon

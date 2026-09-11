@@ -1,15 +1,21 @@
-import logo from "@/assets/logo.svg";
+import { importedImages } from "@/constants/image";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
     <footer className="w-full bg-[#0B291D] text-white py-24 px-6 overflow-hidden">
       <div className="mx-auto max-w-6xl">
-        {/* Top Brand & Mission statement */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-20 pb-16 border-b border-white/10">
           <div>
-            <div className="flex items-center gap-3 mb-4">
-              <img src={logo} alt="Fozara Logo" className="h-8 w-auto" />
-            </div>
+            <Link to="/" className="inline-block">
+              <div className="flex items-center gap-3 mb-4">
+                <img
+                  src={importedImages.logo}
+                  alt="Fozara Logo"
+                  className="h-8 w-auto"
+                />
+              </div>
+            </Link>
             <p className="text-[18px] font-medium text-white/90">
               Global money. Made useful.
             </p>
@@ -23,102 +29,136 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Footer Link Columns */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-20">
-          {/* Column 1: Personal */}
           <div>
             <h4 className="text-[14px] font-semibold tracking-wider uppercase text-[#E7EC32] mb-5">
               Personal
             </h4>
             <ul className="space-y-3.5 text-[14.5px] text-white/70">
               <li>
-                <span className="cursor-default">Freelancers</span>
+                <Link to="/" className="hover:text-white transition-colors">
+                  Freelancers
+                </Link>
               </li>
               <li>
-                <span className="cursor-default">Remote Workers</span>
+                <Link to="/" className="hover:text-white transition-colors">
+                  Remote Workers
+                </Link>
               </li>
               <li>
-                <span className="cursor-default">Digital Nomads</span>
+                <Link to="/" className="hover:text-white transition-colors">
+                  Digital Nomads
+                </Link>
               </li>
             </ul>
           </div>
 
-          {/* Column 2: Business */}
           <div>
             <h4 className="text-[14px] font-semibold tracking-wider uppercase text-[#E7EC32] mb-5">
               Business
             </h4>
             <ul className="space-y-3.5 text-[14.5px] text-white/70">
               <li>
-                <span className="cursor-default">SMEs</span>
+                <Link to="/" className="hover:text-white transition-colors">
+                  SMEs
+                </Link>
               </li>
               <li>
-                <span className="cursor-default">Businesses</span>
+                <Link to="/" className="hover:text-white transition-colors">
+                  Businesses
+                </Link>
               </li>
               <li>
-                <span className="cursor-default">NGOs</span>
+                <Link to="/" className="hover:text-white transition-colors">
+                  NGOs
+                </Link>
               </li>
               <li>
-                <span className="cursor-default">Developers</span>
+                <Link to="/" className="hover:text-white transition-colors">
+                  Developers
+                </Link>
               </li>
             </ul>
           </div>
 
-          {/* Column 3: Solutions */}
           <div>
             <h4 className="text-[14px] font-semibold tracking-wider uppercase text-[#E7EC32] mb-5">
               Solutions
             </h4>
             <ul className="space-y-3.5 text-[14.5px] text-white/70">
               <li>
-                <span className="cursor-default">Get Paid</span>
+                <Link to="/" className="hover:text-white transition-colors">
+                  Get Paid
+                </Link>
               </li>
               <li>
-                <span className="cursor-default">Send</span>
+                <Link to="/" className="hover:text-white transition-colors">
+                  Send
+                </Link>
               </li>
               <li>
-                <span className="cursor-default">Convert</span>
+                <Link to="/" className="hover:text-white transition-colors">
+                  Convert
+                </Link>
               </li>
               <li>
-                <span className="cursor-default">Local Payouts</span>
+                <Link to="/" className="hover:text-white transition-colors">
+                  Local Payouts
+                </Link>
               </li>
               <li>
-                <span className="cursor-default">Digital Assets</span>
+                <Link to="/" className="hover:text-white transition-colors">
+                  Digital Assets
+                </Link>
               </li>
               <li>
-                <span className="cursor-default">API</span>
+                <Link to="/" className="hover:text-white transition-colors">
+                  API
+                </Link>
               </li>
             </ul>
           </div>
 
-          {/* Column 4: Company */}
           <div>
             <h4 className="text-[14px] font-semibold tracking-wider uppercase text-[#E7EC32] mb-5">
               Company
             </h4>
             <ul className="space-y-3.5 text-[14.5px] text-white/70">
               <li>
-                <span className="cursor-default">Careers</span>
+                <Link to="/" className="hover:text-white transition-colors">
+                  Careers
+                </Link>
               </li>
               <li>
-                <span className="cursor-default">Hackathon</span>
+                <Link to="/" className="hover:text-white transition-colors">
+                  Hackathon
+                </Link>
               </li>
               <li>
-                <span className="cursor-default">Hackathon API docs</span>
+                <Link to="/" className="hover:text-white transition-colors">
+                  Hackathon API docs
+                </Link>
               </li>
               <li>
-                <span className="cursor-default">Privacy</span>
+                <Link to="/" className="hover:text-white transition-colors">
+                  Privacy
+                </Link>
               </li>
               <li>
-                <span className="cursor-default">Delete Account</span>
+                <Link to="/" className="hover:text-white transition-colors">
+                  Delete Account
+                </Link>
               </li>
             </ul>
           </div>
         </div>
-        <h2 className="relative z-15 pb-4 text-5xl font-extrabold tracking-tight text-white drop-shadow-md md:text-8xl">
-          Fozara <span style={{ color: "#E7EC32" }}>.</span>
-        </h2>
-        {/* Legal Disclaimer & Copyright */}
+
+        <Link to="/" className="inline-block">
+          <h2 className="relative z-15 pb-4 text-5xl font-extrabold tracking-tight text-white drop-shadow-md md:text-8xl hover:opacity-90 transition-opacity">
+            Fozara <span style={{ color: "#E7EC32" }}>.</span>
+          </h2>
+        </Link>
+
         <div className="pt-12 border-t border-white/10 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
           <p className="text-[13px] text-white/50 leading-relaxed max-w-3xl">
             Fozara is a product of Modern Money Thoughts Inc. Fozara is a
