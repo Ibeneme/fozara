@@ -14,6 +14,7 @@ export function useFadeIn(delayMs: number) {
   };
 }
 
+
 export const LANDMASSES = [
   { cx: 165, cy: 140, rx: 95, ry: 75 },
   { cx: 225, cy: 225, rx: 35, ry: 28 },
@@ -28,7 +29,7 @@ export const LANDMASSES = [
 export function useWorldDots() {
   return useMemo(() => {
     const dots: { x: number; y: number; r: number }[] = [];
-    const step = 15;
+    const step = 22; // was 15 → much fewer dots
     for (let gx = 0; gx <= 1000; gx += step) {
       for (let gy = 0; gy <= 500; gy += step) {
         const inLand = LANDMASSES.some((c) => {
@@ -38,7 +39,7 @@ export function useWorldDots() {
         });
         if (!inLand) continue;
         if ((gx / step + gy / step) % 2 !== 0) continue;
-        dots.push({ x: gx, y: gy, r: 1.4 });
+        dots.push({ x: gx, y: gy, r: 1.35 });
       }
     }
     return dots;
@@ -61,16 +62,6 @@ export type CurrencyOption = {
     iconBg?: string;
     iconText?: string;
   };
-
-export function CurrencyOption({ code, symbol, name }: CurrencyOption) {
-  return (
-    <div className="flex items-center gap-2 px-3 py-2">
-      <span className="font-semibold">{symbol}</span>
-      <span>{code}</span>
-      <span className="text-gray-400 text-sm">{name}</span>
-    </div>
-  );
-}
 
 export const SEND_CURRENCIES: CurrencyOption[] = [
   {

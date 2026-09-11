@@ -5,9 +5,20 @@ import {
   SEND_CURRENCIES,
   STABLE_COINS,
   RECEIVE_CURRENCIES,
-  CurrencyOption,
 } from "@/components/atoms/hero_section_atoms";
 
+
+export type CurrencyOption = {
+    code: string;
+    symbol: string;
+    name: string;
+    flag?: string;
+    rateToUsd?: number;
+    ratePerUsd?: number;
+    iconBg?: string;
+    iconText?: string;
+  };
+  
 export function FlowArc({
   from,
   to,
@@ -18,7 +29,7 @@ export function FlowArc({
   delay: number;
 }) {
   const midX = (from[0] + to[0]) / 2;
-  const midY = Math.min(from[1], to[1]) - 60;
+  const midY = Math.min(from[1], to[1]) - 55;
   const d = `M ${from[0]} ${from[1]} Q ${midX} ${midY} ${to[0]} ${to[1]}`;
 
   return (
@@ -27,7 +38,7 @@ export function FlowArc({
         d={d}
         fill="none"
         stroke="#E7EC32"
-        strokeOpacity="0.16"
+        strokeOpacity="0.14"
         strokeWidth="1.5"
       />
       <path
@@ -37,47 +48,39 @@ export function FlowArc({
         strokeWidth="2"
         strokeLinecap="round"
         strokeDasharray="6 220"
-        style={{
-          animation: `fzr-flow 4.5s linear infinite`,
-          animationDelay: `${delay}s`,
-        }}
+        className="fzr-flow"
+        style={{ animationDelay: `${delay}s` }}
       />
       <circle
         cx={from[0]}
         cy={from[1]}
+        r="2.8"
+        fill="#E7EC32"
+        fillOpacity="0.75"
+      />
+      <circle
+        cx={to[0]}
+        cy={to[1]}
         r="3"
         fill="#E7EC32"
-        fillOpacity="0.8"
+        className="fzr-pulse"
+        style={{ animationDelay: `${delay}s` }}
       />
-      <circle cx={to[0]} cy={to[1]} r="3" fill="#E7EC32" fillOpacity="0.8">
-        <animate
-          attributeName="r"
-          values="3;7;3"
-          dur="2.6s"
-          begin={`${delay}s`}
-          repeatCount="indefinite"
-        />
-        <animate
-          attributeName="opacity"
-          values="0.8;0;0.8"
-          dur="2.6s"
-          begin={`${delay}s`}
-          repeatCount="indefinite"
-        />
-      </circle>
     </g>
   );
 }
 
 export function WorldMap() {
   const dots = useWorldDots();
+
   return (
     <svg
       className="absolute inset-0 h-full w-full"
       viewBox="0 0 1000 500"
       preserveAspectRatio="xMidYMid slice"
+      style={{ contain: "strict" }}
     >
-      {dots.map((d: any, i: any) => (
+      {dots.map((d, i) => (
         <circle
           key={i}
           cx={d.x}
@@ -87,8 +90,9 @@ export function WorldMap() {
           fillOpacity="0.16"
         />
       ))}
-      {FLOW_ROUTES.map((r: any, i: any) => (
-        <FlowArc key={r.id} from={r.from} to={r.to} delay={i * 1.1} />
+      {/* Only 2 arcs instead of 3 */}
+      {FLOW_ROUTES.slice(0, 2).map((r, i) => (
+        <FlowArc key={r.id} from={r.from} to={r.to} delay={i * 1.3} />
       ))}
     </svg>
   );
@@ -98,24 +102,28 @@ export function HeroBackground() {
   return (
     <div aria-hidden className="absolute inset-0 overflow-hidden">
       <div className="absolute inset-0 bg-[#0E1116]" />
+
+      {/* Lighter blur + smaller size on mobile */}
       <div
-        className="absolute -left-[12%] -top-[28%] h-[900px] w-[900px] rounded-full opacity-[0.45] blur-[160px]"
+        className="absolute -left-[12%] -top-[28%] h-[700px] w-[700px] rounded-full opacity-[0.38] blur-[100px] md:h-[900px] md:w-[900px] md:opacity-[0.45] md:blur-[160px]"
         style={{
           background:
             "radial-gradient(circle, #E7EC32 0%, #B8F24C 45%, transparent 72%)",
-          animation: "fzr-drift-a 22s ease-in-out infinite",
+          animation: "fzr-drift-a 28s ease-in-out infinite",
         }}
       />
       <div
-        className="absolute right-[-18%] top-[8%] h-[600px] w-[600px] rounded-full opacity-[0.18] blur-[150px]"
+        className="absolute right-[-18%] top-[8%] h-[480px] w-[480px] rounded-full opacity-[0.14] blur-[90px] md:h-[600px] md:w-[600px] md:opacity-[0.18] md:blur-[150px]"
         style={{
           background: "#5EE0C0",
-          animation: "fzr-drift-b 26s ease-in-out infinite",
+          animation: "fzr-drift-b 32s ease-in-out infinite",
         }}
       />
+
       <div className="absolute inset-0 opacity-[0.9]">
         <WorldMap />
       </div>
+
       <svg
         className="absolute inset-0 h-full w-full"
         xmlns="http://www.w3.org/2000/svg"
@@ -129,18 +137,36 @@ export function HeroBackground() {
         </defs>
         <rect width="100%" height="100%" fill="url(#fzr-fade)" />
       </svg>
+
       <style>{`
         @keyframes fzr-drift-a {
-          0%, 100% { transform: translate(0px, 0px) scale(1); }
-          50% { transform: translate(40px, 30px) scale(1.08); }
+          0%, 100% { transform: translate3d(0,0,0) scale(1); }
+          50% { transform: translate3d(30px,22px,0) scale(1.06); }
         }
         @keyframes fzr-drift-b {
-          0%, 100% { transform: translate(0px, 0px) scale(1); }
-          50% { transform: translate(-30px, 20px) scale(1.06); }
+          0%, 100% { transform: translate3d(0,0,0) scale(1); }
+          50% { transform: translate3d(-22px,16px,0) scale(1.05); }
         }
         @keyframes fzr-flow {
           from { stroke-dashoffset: 0; }
           to { stroke-dashoffset: -226; }
+        }
+        .fzr-flow {
+          animation: fzr-flow 5.5s linear infinite;
+        }
+        @keyframes fzr-pulse {
+          0%, 100% { r: 3; opacity: 0.8; }
+          50% { r: 6.5; opacity: 0; }
+        }
+        .fzr-pulse {
+          animation: fzr-pulse 2.8s ease-in-out infinite;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .fzr-flow,
+          .fzr-pulse,
+          [style*="fzr-drift"] {
+            animation: none !important;
+          }
         }
       `}</style>
     </div>
@@ -319,7 +345,7 @@ export function TransactionCorridor() {
   const [receiveCurrency, setReceiveCurrency] = useState(RECEIVE_CURRENCIES[0]);
 
   useEffect(() => {
-    const interval = setInterval(() => setStage((s) => (s + 1) % 3), 2600);
+    const interval = setInterval(() => setStage((s) => (s + 1) % 3), 3200);
     return () => clearInterval(interval);
   }, []);
 
