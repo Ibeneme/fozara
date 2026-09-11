@@ -1,0 +1,12 @@
+export { default as PoweredBySection } from "./powered_by_section";
+export { default as HeroSection } from "./hero_section";
+export { default as AppDownloadSection } from "./app_download_section";
+export { default as CompanySlider } from "./company_slider";
+export { default as GlobalFlexibility } from "./global_flexibility";
+export { default as ProductSection } from "./product_sessions";
+export { default as HowMoneyTravels } from "./how_money_travels";
+export { default as PeopleSection } from "./for_people_section";
+export { default as BusinessSection } from "./for_business_section";
+export { default as NGOSection } from "./for_ngo_sections";
+export { default as RealWorldSection } from "./real_world_section";
+export { default as ReviewSection } from "./review_section";

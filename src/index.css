@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Parkinsans';
+  src: url('../src/assets/fonts/parkinsans/Parkinsans-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Parkinsans';
+  src: url('../src/assets/fonts/parkinsans/Parkinsans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Parkinsans';
+  src: url('../src/assets/fonts/parkinsans/Parkinsans-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Parkinsans';
+  src: url('../src/assets/fonts/parkinsans/Parkinsans-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Parkinsans';
+  src: url('../src/assets/fonts/parkinsans/Parkinsans-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Parkinsans';
+  src: url('../src/assets/fonts/parkinsans/Parkinsans-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Root variables and custom theme setup for Tailwind v4 */
+:root {
+  --color-primary: #44DAFF;
+  --color-primary-dark: #00b0df;
+  --color-bg-dark: #031632;
+  --color-card-bg: #072248;
+}
+
+@theme {
+  --font-sans: 'Parkinsans', sans-serif;
+  --color-primary: var(--color-primary);
+  --color-primary-dark: var(--color-primary-dark);
+  --color-bg-dark: var(--color-bg-dark);
+  --color-card-bg: var(--color-card-bg);
+}
+
+/* Global base styles */
+body {
+  font-family: 'Parkinsans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
